@@ -2,7 +2,7 @@ import React from 'react'
 import { BackTop, Layout } from 'antd'
 import MyHeader from './MyHeader'
 
-const { Header, Footer, Sider, Content } = Layout
+const {  Footer, Content } = Layout
 
 const MyLayout: React.FC = ({ children }) => {
     return (

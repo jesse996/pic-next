@@ -13,6 +13,7 @@ import {NewsResp, PageResp, Pic} from '../types'
 
 import {EyeOutlined, RightOutlined} from '@ant-design/icons'
 import MyLayout from "../components/Layout";
+import NewsList from '../components/NewsList'
 
 
 interface Carousel {
@@ -141,7 +142,7 @@ const Index = () => {
             <IndexImgList list={girlList} path="girl"/>
 
             <MyTitle title="最新资讯" path="news"/>
-            {/*<NewsList count={10}/>*/}
+            <NewsList count={10}/>
         </MyLayout>
     )
 }

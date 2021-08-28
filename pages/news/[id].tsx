@@ -5,7 +5,7 @@ import {getNewsDetail} from '../../api'
 import {useRouter} from "next/router";
 import MyLayout from "../../components/Layout";
 
-// import MyComment from '@/components/MyComment'
+import MyComment from '../../components/MyComment'
 
 
 interface NewsResp {
@@ -42,7 +42,7 @@ export default function NewsDetail() {
                 }}
             />
             {/*<Pay></Pay>*/}
-            {/*<MyComment type={0} objId={Number(id)} />*/}
+            <MyComment type={0} objId={Number(id)} />
         </MyLayout>
     )
 }

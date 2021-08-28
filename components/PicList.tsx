@@ -83,7 +83,7 @@ const PicList: React.FC<Props> = ({ getList, path }) => {
     }
 
     setColumnCount(colCount)
-  }, [size])
+  }, [windowSize.width])
 
   useEffect(() => {
     if (windowSize.width < 768) {
