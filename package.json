@@ -9,12 +9,30 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.6.4",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@types/node": "^16.7.3",
+    "antd": "^4.16.13",
+    "autoprefixer": "^10.3.3",
+    "axios": "^0.21.1",
+    "babel-plugin-import": "^1.13.3",
     "next": "11.1.0",
+    "next-plugin-antd-less": "^1.4.2",
+    "postcss": "^8.3.6",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-activation": "^0.9.4",
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.4",
+    "react-virtualized-auto-sizer": "^1.0.6",
+    "react-window": "^1.8.6",
+    "react-window-infinite-loader": "^1.0.7",
+    "tailwindcss": "^2.2.8"
   },
   "devDependencies": {
     "@types/react": "17.0.19",
+    "@types/react-virtualized-auto-sizer": "^1.0.1",
+    "@types/react-window": "^1.8.5",
+    "@types/react-window-infinite-loader": "^1.0.4",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
     "typescript": "4.4.2"
