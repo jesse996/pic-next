@@ -43,9 +43,7 @@ const getRequest = (method: string) => {
 
         // @ts-ignore
         return axios({
-            // baseURL: base.apiBaseUrl, // 请求域名地址
-            baseURL: 'http://localhost:8080', // 请求域名地址
-            // baseURL: 'https://api.jesse233.top:1234', // 请求域名地址
+            baseURL: process.env.NEXT_PUBLIC_BASE, // 请求域名地址
             method,
             url,
             ...(method === 'POST'
