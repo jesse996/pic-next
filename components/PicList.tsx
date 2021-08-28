@@ -1,5 +1,5 @@
 import React, {forwardRef, useCallback, useEffect, useState} from 'react'
-import {Button, Card, Image, List, Skeleton, message} from 'antd'
+import {Button, Card, List, Skeleton, message} from 'antd'
 import Link from 'next/link'
 import {PageReq, PageResp, Pic} from '../types'
 import AutoSizer from 'react-virtualized-auto-sizer'
@@ -7,6 +7,7 @@ import {FixedSizeGrid as Grid} from 'react-window'
 import {useGetSize} from '../utils'
 import InfiniteLoader from 'react-window-infinite-loader'
 import {EyeOutlined} from '@ant-design/icons'
+import Image from 'next/image'
 
 interface Props {
     getList: (pageReq?: PageReq) => Promise<PageResp<Pic>>
@@ -120,11 +121,12 @@ const PicList: React.FC<Props> = ({getList, path}) => {
                                     className="justify-center items-center max-w-full overflow-hidden  text-center"
                                 >
                                     <Image
-                                        alt={''}
-                                        className={'object-cove'}
-                                        fallback="https://img95.699pic.com/xsj/0x/qx/8l.jpg!/fh/300"
                                         src={item.coverImg}
-                                        preview={false}
+                                        layout={'fill'}
+                                        alt={'img'}
+                                        className={'object-cove'}
+                                        // fallback="https://img95.699pic.com/xsj/0x/qx/8l.jpg!/fh/300"
+                                        // preview={false}
                                     />
                                     <div
                                         className=" flex justify-end items-center absolute bottom-0 right-0 w-full m-2">

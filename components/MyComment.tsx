@@ -4,7 +4,7 @@ import { setShowLoginModel } from '../store/slice/commonSlice'
 import { UserOutlined } from '@ant-design/icons'
 import { Button, Divider, Input, message, List } from 'antd'
 import Avatar from 'antd/lib/avatar/avatar'
-import React, { useEffect, useState } from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
 
 interface Props {
@@ -30,20 +30,20 @@ const MyComment = ({ type, objId }: Props) => {
     }
   }
 
-  const fetchComment = async () => {
+  const fetchComment = useCallback( async () => {
     try {
       let comments = await getComment({ type, objId })
       setComments(comments)
     } catch (e) {
       console.log(e)
     }
-  }
+  },[objId, type])
 
   useEffect(() => {
     ;(async () => {
       await fetchComment()
     })()
-  }, [])
+  }, [fetchComment])
 
   return (
     <>

@@ -30,11 +30,12 @@ axios.interceptors.response.use(
         }
     },
     async (error) => {
-        console.log('response',JSON.stringify(error))
+        console.log('response interceptors err:', JSON.stringify(error))
         // 对响应错误做点什么
         return Promise.reject(JSON.stringify(error))
     }
 )
+
 
 const getRequest = (method: string) => {
     return (url: string, data: any = null, options: any = {}) => {

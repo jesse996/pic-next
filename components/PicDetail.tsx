@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Divider, Image, Space, Spin } from 'antd'
+import { Button, Divider,Image, Space, Spin } from 'antd'
 import { EyeTwoTone, LikeTwoTone } from '@ant-design/icons'
 import { Pic } from '../types'
 import dayjs from 'dayjs'
@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../hook'
 import { setShowLoginModel } from '../store/slice/commonSlice'
 import {getPicDetail} from '../api'
 import {useRouter} from "next/router";
+// import Image from 'next/image'
 
 
 dayjs.extend(relativeTime)
@@ -17,7 +18,6 @@ dayjs.locale('zh-cn')
 const PicDetail = () => {
   const {id} = useRouter().query
   console.log('id:',id)
-  const [allDetail, setAllDetail] = useState<Pic>()
   const [detail, setDetail] = useState<Pic>()
   const [viewCount, setViewCount] = useState(0)
   let userInfo = useAppSelector((state) => state.common.userInfo)
@@ -33,7 +33,6 @@ const PicDetail = () => {
   useEffect(() => {
     ;(async () => {
       let data = await getPicDetail(Number(id))
-      setAllDetail(data)
       setViewCount(data.viewCount)
 
       if (!userInfo) {
@@ -61,13 +60,15 @@ const PicDetail = () => {
             <Image
               key={i}
               src={i}
+              // layout={'fill'}
+              alt={'img'}
               preview={false}
               className="flex flex-col justify-center items-center"
-              placeholder={
-                <div className="text-center">
-                  <Spin />
-                </div>
-              }
+              // placeholder={
+              //   <div className="text-center">
+              //     <Spin />
+              //   </div>
+              // }
             />
           ))}
 

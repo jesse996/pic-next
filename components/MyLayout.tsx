@@ -1,7 +1,6 @@
 import React from 'react'
 import {BackTop, Layout} from 'antd'
 import MyHeader from './MyHeader'
-// import { KeepAlive } from 'react-activation'
 import {useRouter} from "next/router";
 const {Footer, Content} = Layout
 
@@ -9,10 +8,6 @@ const MyLayout: React.FC = ({children}) => {
     const router = useRouter()
     console.log('router.pathname:',router)
     return (
-        // <KeepAlive
-        //     saveScrollPosition="screen"
-        //     id={router.asPath}
-        // >
             <Layout>
                 <MyHeader/>
                 <Content
@@ -35,7 +30,6 @@ const MyLayout: React.FC = ({children}) => {
                 </Footer>
                 <BackTop/>
             </Layout>
-        // </KeepAlive>
     )
 }
 

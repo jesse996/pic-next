@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Card, Carousel, Image} from 'antd'
 import Link from 'next/link'
-import {GetServerSideProps, InferGetServerSidePropsType} from 'next'
+import {GetServerSideProps, GetStaticProps, InferGetServerSidePropsType} from 'next'
 import {
     getCarousel,
     getCosplay,
@@ -26,20 +26,30 @@ interface Carousel {
 const {Meta} = Card
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    let data: PageResp<Pic> = await getCosplay()
-    let cosplayList: Pic[] = data.records
+    let cosplayList: Pic[] = []
+    let pureGirlList: Pic[] = []
+    let girlList: any[] = []
+    let newsList: any[] = []
+    try {
+        let data: PageResp<Pic> = await getCosplay()
+        cosplayList = data.records
 
-    data = await getPureGirls()
-    let pureGirlList: Pic[] = data.records
+        data = await getPureGirls()
+        pureGirlList = data.records
 
-    data = await getGirls()
-    let girlList = data.records
+        data = await getGirls()
+        girlList = data.records
 
-    let news: PageResp<NewsResp> = await getNewsList({
-        current: 1,
-        size: 2,
-    })
-    let newsList = news.records
+        let news: PageResp<NewsResp> = await getNewsList({
+            current: 1,
+            size: 2,
+        })
+        newsList = news.records
+    } catch (e) {
+        console.log('index err:--------')
+        console.log(e)
+    }
+
 
     return {
         props: {
