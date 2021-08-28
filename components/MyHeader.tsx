@@ -127,7 +127,7 @@ function MyHeader() {
             <div className={'fixed inset-x-0 h-16 z-20 bg-white md:hidden'}>
                 <div className={'h-full w-full px-4 flex justify-between items-center'}>
                     <div className={'text-xl '}>
-                        <Link href="/"><a>绅士社</a></Link>
+                        <Link href="/"><div>绅士社</div></Link>
                     </div>
                     <div
                         onClick={handleChangeShowMobileMenu}
@@ -155,7 +155,7 @@ function MyHeader() {
                 >
                     {tabs.map((tab) => (
                         <div key={tab.path}>
-                            <Link href={tab.path}>{tab.name}</Link>
+                            <Link href={tab.path}><div>{tab.name}</div></Link>
                         </div>
                     ))}
                     {userInfo ? null :
@@ -194,7 +194,7 @@ function MyHeader() {
                                     title={tab.name}
                                     onClick={() => handleChangeHeaderTab(tab.path)}
                                 >
-                                    <Link href={tab.path}>{tab.name}</Link>
+                                    <Link href={tab.path}><div>{tab.name}</div></Link>
                                 </Menu.Item>
                             ))}
                         </Menu>

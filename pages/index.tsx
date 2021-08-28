@@ -111,10 +111,10 @@ const Index = ({
         <div className="flex justify-between items-center mt-5 mb-2">
             <div className="text-2xl md:text-4xl">{title}</div>
             <Link href={`/${path}`}>
-                <a className="text-base hover:text-blue-300  cursor-pointer antialiased">
+                <div className="text-base hover:text-blue-300  cursor-pointer antialiased flex justify-center items-center">
                     <span>查看更多</span>
                     <RightOutlined/>
-                </a>
+                </div>
             </Link>
         </div>
     )

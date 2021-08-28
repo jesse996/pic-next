@@ -1,5 +1,5 @@
 import React, {forwardRef, useCallback, useEffect, useState} from 'react'
-import {Button, Card, List, Skeleton, message} from 'antd'
+import {Button, Card, List,Image, Skeleton, message} from 'antd'
 import Link from 'next/link'
 import {PageReq, PageResp, Pic} from '../types'
 import AutoSizer from 'react-virtualized-auto-sizer'
@@ -7,7 +7,7 @@ import {FixedSizeGrid as Grid} from 'react-window'
 import {useGetSize} from '../utils'
 import InfiniteLoader from 'react-window-infinite-loader'
 import {EyeOutlined} from '@ant-design/icons'
-import Image from 'next/image'
+// import Image from 'next/image'
 
 interface Props {
     getList: (pageReq?: PageReq) => Promise<PageResp<Pic>>
@@ -112,7 +112,7 @@ const PicList: React.FC<Props> = ({getList, path}) => {
                 className="overflow-hidden"
             >
                 <Skeleton title={false} loading={item.loading}>
-                    <Link href={`/${path}/${item.id}`}>
+                    <Link href={`/${path}/${item.id}`} passHref={true}>
                         <Card
                             // style={{ height: '350px' }}
                             cover={
@@ -122,7 +122,7 @@ const PicList: React.FC<Props> = ({getList, path}) => {
                                 >
                                     <Image
                                         src={item.coverImg}
-                                        layout={'fill'}
+                                        // layout={'fill'}
                                         alt={'img'}
                                         className={'object-cove'}
                                         // fallback="https://img95.699pic.com/xsj/0x/qx/8l.jpg!/fh/300"
