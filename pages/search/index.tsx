@@ -7,7 +7,7 @@ import React, {useEffect, useState} from 'react'
 import Link from 'next/link'
 import {useRouter} from "next/router";
 import Image from 'next/image'
-import MyLayout from "../../components/Layout";
+import MyLayout from "../../components/MyLayout";
 
 // eslint-disable-next-line react/display-name
 export default () => {

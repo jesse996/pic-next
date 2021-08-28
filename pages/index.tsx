@@ -12,7 +12,7 @@ import {
 import {NewsResp, PageResp, Pic} from '../types'
 
 import {EyeOutlined, RightOutlined} from '@ant-design/icons'
-import MyLayout from "../components/Layout";
+import MyLayout from "../components/MyLayout";
 import NewsList from '../components/NewsList'
 
 

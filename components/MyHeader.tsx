@@ -19,31 +19,30 @@ interface ITab {
 }
 
 const {Search} = Input
+const tabs: ITab[] = [
+    {
+        name: '首页',
+        path: '/',
+    },
+    {
+        name: 'COSPLAY',
+        path: '/cosplay',
+    },
+    {
+        name: '妹子图',
+        path: '/pure-girl',
+    },
+    {
+        name: '性感妹子',
+        path: '/girl',
+    },
+    {
+        name: '资讯',
+        path: '/news',
+    },
+]
 
 function MyHeader() {
-    const tabs: ITab[] = [
-        {
-            name: '首页',
-            path: '/',
-        },
-        {
-            name: 'COSPLAY',
-            path: '/cosplay',
-        },
-        {
-            name: '妹子图',
-            path: '/pure-girl',
-        },
-        {
-            name: '性感妹子',
-            path: '/girl',
-        },
-        {
-            name: '资讯',
-            path: '/news',
-        },
-    ]
-
     const [currentPath, setCurrentPath] = useState('/')
     const [showMobileMenu, setShowMobileMenu] = useState(false)
     const dispatch = useAppDispatch()
@@ -128,7 +127,7 @@ function MyHeader() {
             <div className={'fixed inset-x-0 h-16 z-20 bg-white md:hidden'}>
                 <div className={'h-full w-full px-4 flex justify-between items-center'}>
                     <div className={'text-xl '}>
-                        <Link href="/">绅士社</Link>
+                        <Link href="/"><a>绅士社</a></Link>
                     </div>
                     <div
                         onClick={handleChangeShowMobileMenu}

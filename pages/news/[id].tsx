@@ -3,7 +3,7 @@ import CosplayDetail from '../cosplay/[id]'
 import {getNewsDetail} from '../../api'
 // import './News.css'
 import {useRouter} from "next/router";
-import MyLayout from "../../components/Layout";
+import MyLayout from "../../components/MyLayout";
 
 import MyComment from '../../components/MyComment'
 

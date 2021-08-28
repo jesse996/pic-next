@@ -1,6 +1,6 @@
 import PicList from "../../components/PicList";
 import {getCosplay} from "../../api";
-import MyLayout from "../../components/Layout";
+import MyLayout from "../../components/MyLayout";
 
 export default function Cosplay() {
     return <MyLayout>

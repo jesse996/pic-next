@@ -1,6 +1,6 @@
 import {getCosplay, getPureGirls} from '../../api'
 import PicList from '../../components/PicList'
-import MyLayout from "../../components/Layout";
+import MyLayout from "../../components/MyLayout";
 
 export default function PureGirl() {
     return <MyLayout>
