@@ -58,7 +58,7 @@ function MyHeader() {
             } catch (e) {
             }
         })()
-    }, [])
+    }, [dispatch])
 
     //地址变化设置tab
     useEffect(() => {

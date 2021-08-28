@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Card, Carousel, Image} from 'antd'
-// import NewsList from '@/page/NewsList/NewsList'
 import Link from 'next/link'
+import {GetServerSideProps, InferGetServerSidePropsType} from 'next'
 import {
     getCarousel,
     getCosplay,
@@ -25,58 +25,37 @@ interface Carousel {
 
 const {Meta} = Card
 
-const Index = () => {
-    //轮播图
-    const [carousel, setCarousel] = useState<Carousel[]>([])
-    useEffect(() => {
-        ;(async () => {
-            const data = await getCarousel()
-            // console.log(data)
-            setCarousel(data)
-        })()
-    }, [])
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    let data: PageResp<Pic> = await getCosplay()
+    let cosplayList: Pic[] = data.records
 
-    //coplay
-    const [cosplayList, setCosplayList] = useState<Pic[]>([])
-    useEffect(() => {
-        ;(async () => {
-            let data: PageResp<Pic> = await getCosplay()
-            setCosplayList(data.records)
-        })()
-    }, [])
+    data = await getPureGirls()
+    let pureGirlList: Pic[] = data.records
 
-    // 清纯妹子
-    const [pureGirlList, setPureGirlList] = useState<Pic[]>([])
-    useEffect(() => {
-        ;(async () => {
-            let data: PageResp<Pic> = await getPureGirls()
-            setPureGirlList(data.records)
-        })()
-    }, [])
+    data = await getGirls()
+    let girlList = data.records
 
-    // 性感妹子
-    const [girlList, setGirlList] = useState<Pic[]>([])
-    useEffect(() => {
-        ;(async () => {
-            let data: PageResp<Pic> = await getGirls()
-            setGirlList(data.records)
-        })()
-    }, [])
+    let news: PageResp<NewsResp> = await getNewsList({
+        current: 1,
+        size: 2,
+    })
+    let newsList = news.records
 
-    // 新闻
-    const [newsList, setNewsList] = useState<NewsResp[]>([])
-    useEffect(() => {
-        ;(async () => {
-            let data: PageResp<NewsResp> = await getNewsList({
-                current: 1,
-                size: 2,
-            })
-            //   let res = Array(5).fill(data.records[0])
-            let res = data.records
-            setNewsList(res)
-        })()
-    }, [])
-
+    return {
+        props: {
+            cosplayList,
+            pureGirlList,
+            girlList,
+            newsList
+        },
+    }
+}
+const Index = ({
+                   cosplayList,
+                   pureGirlList,
+                   girlList,
+                   newsList
+               }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     /**
      * 图片展示组件
      */

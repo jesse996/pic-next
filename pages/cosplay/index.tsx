@@ -4,6 +4,7 @@ import MyLayout from "../../components/Layout";
 
 export default function Cosplay() {
     return <MyLayout>
-        <PicList getList={getCosplay} path="cosplay"/>
+        {process.browser ?
+            <PicList getList={getCosplay} path="cosplay"/> : null}
     </MyLayout>
 }

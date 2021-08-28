@@ -1,8 +1,11 @@
-import {getGirls} from '../../api'
+import {getCosplay, getGirls} from '../../api'
 import PicList from '../../components/PicList'
 import React from 'react'
 import MyLayout from "../../components/Layout";
 
 export default function Girl() {
-    return <MyLayout><PicList getList={getGirls} path="girl"/></MyLayout>
+    return <MyLayout>
+        {process.browser ?
+            <PicList getList={getGirls} path="cosplay"/> : null}
+    </MyLayout>
 }

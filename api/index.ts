@@ -1,6 +1,6 @@
-import { UserInfo } from './../store/slice/commonSlice'
-import { PageReq, Pic } from './../types/index'
-import { get, post } from '../utils'
+import {UserInfo} from './../store/slice/commonSlice'
+import {PageReq, Pic} from './../types/index'
+import {get, post} from '../utils'
 
 /**
  * 获取首页轮播图
@@ -15,7 +15,7 @@ export function getCarousel() {
  * @returns
  */
 export function getPicList(pageReq: PageReq, type: number) {
-    return post('pic/list', { ...pageReq, data: { type } })
+    return post('pic/list', {...pageReq, data: {type}})
 }
 
 /**
@@ -34,7 +34,7 @@ export function getCosplay(pageReq?: PageReq) {
         current: 1,
         size: 4,
         ...pageReq,
-        data: { type: 2 },
+        data: {type: 2},
     })
 }
 
@@ -46,7 +46,7 @@ export function getGirls(pageReq?: PageReq) {
         current: 1,
         size: 4,
         ...pageReq,
-        data: { type: 0 },
+        data: {type: 0},
     })
 }
 
@@ -60,7 +60,7 @@ export function getPureGirls(pageReq?: PageReq) {
         current: 1,
         size: 4,
         ...pageReq,
-        data: { type: 3 },
+        data: {type: 3},
     })
 }
 
@@ -82,21 +82,21 @@ export function getNewsDetail(id: number) {
  * 搜索资讯
  */
 export function search(keyword: string) {
-    return get(`/news/search`, { keyword })
+    return get(`/news/search`, {keyword})
 }
 
 /**
  * pic浏览量
  */
 export function getPicViewCount(id: number) {
-    return get(`/viewCount/pic`, { id })
+    return get(`/viewCount/pic`, {id})
 }
 
 /**
  * pic浏览量
  */
 export function getNewsViewCount(id: number) {
-    return get(`/viewCount/news`, { id })
+    return get(`/viewCount/news`, {id})
 }
 
 /**
@@ -156,18 +156,13 @@ export type CommentResp = {
     createTime: string
     updateTime: string
 } & CommentReq
+
 /**
  * 获取评论,
  * type:  0:news ,1:pic
  */
-export function getComment({
-                               type,
-                               objId,
-                           }: {
-    type: number
-    objId: Number
-}): Promise<CommentResp[]> {
-    return get('/comment', { objId, type })
+export function getComment({type, objId}: { type: number, objId: Number }): Promise<CommentResp[]> {
+    return get('/comment', {objId, type})
 }
 
 /**
@@ -183,23 +178,24 @@ export function activate(token: string) {
 export function sendActivateEmail() {
     return post('/user/sendActiveEmail')
 }
+
 /**
  * pc支付
  */
 export function payPc(orderId: number, redirect: string) {
-    return post('/pay/pc', { orderId, redirect })
+    return post('/pay/pc', {orderId, redirect})
 }
 
 /**
  * 手机支付
  */
 export function payWap(orderId: number, redirect: string) {
-    return post('/pay/wap', { orderId, redirect })
+    return post('/pay/wap', {orderId, redirect})
 }
 
 /**
  * 获取订单
  */
 export function getOrder(type: number, targetId: number, amount: number) {
-    return post('/pay/getOrder', { type, targetId, amount })
+    return post('/pay/getOrder', {type, targetId, amount})
 }

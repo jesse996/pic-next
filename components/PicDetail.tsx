@@ -16,6 +16,7 @@ dayjs.locale('zh-cn')
 
 const PicDetail = () => {
   const {id} = useRouter().query
+  console.log('id:',id)
   const [allDetail, setAllDetail] = useState<Pic>()
   const [detail, setDetail] = useState<Pic>()
   const [viewCount, setViewCount] = useState(0)
@@ -40,7 +41,7 @@ const PicDetail = () => {
       }
       setDetail(data)
     })()
-  }, [userInfo])
+  }, [id, userInfo])
 
   return (
     <>
