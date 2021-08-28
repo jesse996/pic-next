@@ -25,7 +25,8 @@ interface Carousel {
 
 const {Meta} = Card
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
     let cosplayList: Pic[] = []
     let pureGirlList: Pic[] = []
     let girlList: any[] = []
@@ -65,7 +66,7 @@ const Index = ({
                    pureGirlList,
                    girlList,
                    newsList
-               }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+               }: InferGetServerSidePropsType<typeof getStaticProps>) => {
     /**
      * 图片展示组件
      */
