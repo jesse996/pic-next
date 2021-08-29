@@ -18,7 +18,7 @@ dayjs.locale('zh-cn')
 
 const PicDetail = ({data}:{data:Pic}) => {
   let detail = data
-  let viewCount = detail.viewCount
+  let viewCount = detail?.viewCount
   let userInfo = useAppSelector((state) => state.common.userInfo)
   const dispatch = useAppDispatch()
 
