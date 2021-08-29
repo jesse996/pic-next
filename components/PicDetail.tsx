@@ -9,17 +9,16 @@ import { useAppDispatch, useAppSelector } from '../hook'
 import { setShowLoginModel } from '../store/slice/commonSlice'
 import {getPicDetail} from '../api'
 import {useRouter} from "next/router";
+import MyComment from "./MyComment";
 // import Image from 'next/image'
 
 
 dayjs.extend(relativeTime)
 dayjs.locale('zh-cn')
 
-const PicDetail = () => {
-  const {id} = useRouter().query
-  console.log('id:',id)
-  const [detail, setDetail] = useState<Pic>()
-  const [viewCount, setViewCount] = useState(0)
+const PicDetail = ({data}:{data:Pic}) => {
+  let detail = data
+  let viewCount = detail.viewCount
   let userInfo = useAppSelector((state) => state.common.userInfo)
   const dispatch = useAppDispatch()
 
@@ -28,19 +27,6 @@ const PicDetail = () => {
     let day = dayjs(time)
     return day.fromNow()
   }
-
-  //获取图片信息
-  useEffect(() => {
-    ;(async () => {
-      let data = await getPicDetail(Number(id))
-      setViewCount(data.viewCount)
-
-      if (!userInfo) {
-        data.imgList = data.imgList.slice(0, 5)
-      }
-      setDetail(data)
-    })()
-  }, [id, userInfo])
 
   return (
     <>
@@ -64,11 +50,11 @@ const PicDetail = () => {
               alt={'img'}
               preview={false}
               className="flex flex-col justify-center items-center"
-              // placeholder={
-              //   <div className="text-center">
-              //     <Spin />
-              //   </div>
-              // }
+              placeholder={
+                <div className="text-center">
+                  <Spin />
+                </div>
+              }
             />
           ))}
 

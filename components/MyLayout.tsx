@@ -5,8 +5,7 @@ import {useRouter} from "next/router";
 const {Footer, Content} = Layout
 
 const MyLayout: React.FC = ({children}) => {
-    const router = useRouter()
-    console.log('router.pathname:',router)
+
     return (
             <Layout>
                 <MyHeader/>

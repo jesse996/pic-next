@@ -7,7 +7,7 @@ import {store} from '../store'
 import {memo, useEffect, useRef} from "react";
 import {useRouter} from "next/router";
 
-const ROUTES_TO_RETAIN = ['/','/girl','/pure-girl','/news','/cosplay']
+const ROUTES_TO_RETAIN = ['/girl','/pure-girl','/news','/cosplay']
 
 function MyApp({Component, pageProps}: AppProps) {
     const router = useRouter()

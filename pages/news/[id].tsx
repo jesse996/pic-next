@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import CosplayDetail from '../cosplay/[id]'
-import {getNewsDetail} from '../../api'
+import {getCosplay, getNewsDetail, getNewsList} from '../../api'
 // import './News.css'
 import {useRouter} from "next/router";
 import MyLayout from "../../components/MyLayout";
 
 import MyComment from '../../components/MyComment'
+import {PageResp, Pic} from "../../types";
 
 
 interface NewsResp {
@@ -17,6 +18,15 @@ interface NewsResp {
     likeCount?: number
     viewCount?: number
     commentCount?: number
+}
+
+export async function getStaticPaths() {
+    let data: PageResp<NewsResp> = await getNewsList({current: 1, size: 200})
+    let paths = data.records.map(i => ({params: {id: i.id}}))
+    return {
+        paths,
+        fallback: true // See the "fallback" section below
+    };
 }
 
 export default function NewsDetail() {

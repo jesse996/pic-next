@@ -126,7 +126,7 @@ const PicList: React.FC<Props> = ({getList, path}) => {
                                         alt={'img'}
                                         className={'object-cove'}
                                         // fallback="https://img95.699pic.com/xsj/0x/qx/8l.jpg!/fh/300"
-                                        // preview={false}
+                                        preview={false}
                                     />
                                     <div
                                         className=" flex justify-end items-center absolute bottom-0 right-0 w-full m-2">
