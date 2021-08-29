@@ -7,28 +7,17 @@ import {NewsResp, PageResp} from '../types'
 import IconText from './IconText'
 
 interface Props {
-    count?: number
+    count?: number,
+    data: NewsResp[]
 }
 
 const loadMoreCount = 10
 
-export default function NewsList({count}: Props) {
-    const [newsList, setNewsList] = useState<NewsResp[]>([])
-    const [initLoading, setInitLoading] = useState(true)
+export default function NewsList({count, data}: Props) {
+    const [newsList, setNewsList] = useState<NewsResp[]>(data)
+    const [list, setList] = useState<NewsResp[]>(data)
     const [loading, setLoading] = useState(false)
-    const [list, setList] = useState<NewsResp[]>([])
-    useEffect(() => {
-        ;(async () => {
-            let data: PageResp<NewsResp> = await getNewsList({
-                current: 1,
-                size: count || 20,
-            })
-            let res = data.records
-            setNewsList(res)
-            setList(res)
-            setInitLoading(false)
-        })()
-    }, [count])
+
 
     const onLoadMore = async () => {
         setNewsList((newsList) =>
@@ -48,7 +37,7 @@ export default function NewsList({count}: Props) {
     }
 
     const loadMore =
-        !initLoading && !loading ? (
+        !loading ? (
             <div
                 style={{
                     textAlign: 'center',
@@ -66,7 +55,7 @@ export default function NewsList({count}: Props) {
             <List
                 itemLayout={'vertical'}
                 loadMore={loadMore}
-                loading={initLoading}
+                // loading={initLoading}
                 size={'large'}
                 dataSource={newsList}
                 renderItem={(item: NewsResp, index: number) => (

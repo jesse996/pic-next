@@ -52,8 +52,8 @@ export function getGirls(pageReq?: PageReq) {
 
 /**
  *
- * @param 获取清纯妹子
  * @returns
+ * @param pageReq
  */
 export function getPureGirls(pageReq?: PageReq) {
     return post('pic/list', {
@@ -67,8 +67,8 @@ export function getPureGirls(pageReq?: PageReq) {
 /**
  * 获取资讯列表
  */
-export function getNewsList(data: any) {
-    return post('news/list', data)
+export function getNewsList(pageReq?: PageReq) {
+    return post('news/list', pageReq)
 }
 
 /**

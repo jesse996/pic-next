@@ -1,8 +1,19 @@
 import NewsList from "../../components/NewsList";
 import MyLayout from "../../components/MyLayout";
+import {GetStaticProps, InferGetStaticPropsType} from "next";
+import {getNewsList, getPicDetail} from "../../api";
 
-export default function News() {
+export const getStaticProps: GetStaticProps = async () => {
+    let data = await getNewsList()
+    return {
+        props: {
+            data
+        }
+    }
+}
+
+export default function News({data}:InferGetStaticPropsType<typeof getStaticProps>) {
     return <MyLayout>
-        <NewsList/>
+        <NewsList data={data}/>
     </MyLayout>
 }
