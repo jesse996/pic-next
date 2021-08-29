@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import CosplayDetail from '../cosplay/[id]'
-import {getCosplay, getNewsDetail, getNewsList} from '../../api'
+import {getCosplay, getNewsDetail, getNewsList, getPicDetail} from '../../api'
 // import './News.css'
 import {useRouter} from "next/router";
 import MyLayout from "../../components/MyLayout";
 
 import MyComment from '../../components/MyComment'
 import {PageResp, Pic} from "../../types";
+import {GetStaticProps} from "next";
 
 
 interface NewsResp {
@@ -29,18 +30,21 @@ export async function getStaticPaths() {
     };
 }
 
-export default function NewsDetail() {
+export const getStaticProps: GetStaticProps = async ({params}) => {
+    console.log('params:',params)
+    // @ts-ignore
+    let data = await getNewsDetail(Number(params.id))
+    return {
+        props: {
+            data
+        }
+    }
+}
+
+// @ts-ignore
+export default function NewsDetail({data}) {
     // const { id } = useParams<{ id: string }>()
     const {id} = useRouter().query
-    // if (!id) return <div>not exist</div>
-    
-    const [news, setNews] = useState<NewsResp>()
-    useEffect(() => {
-        ;(async () => {
-            let data: NewsResp = await getNewsDetail(+id!)
-            setNews(data)
-        })()
-    }, [id])
 
     return (
         <MyLayout>
@@ -48,7 +52,7 @@ export default function NewsDetail() {
                 id="news-root"
                 className="w-full max-w-screen object-scale-down"
                 dangerouslySetInnerHTML={{
-                    __html: news?.content!,
+                    __html: data?.content!,
                 }}
             />
             {/*<Pay></Pay>*/}

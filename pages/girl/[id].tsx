@@ -16,7 +16,6 @@ export async function getStaticPaths() {
     };
 }
 
-// export async function getStaticProps({params}):GetStaticProps {
 export const getStaticProps: GetStaticProps = async ({params}) => {
     console.log('params:',params)
     // @ts-ignore
