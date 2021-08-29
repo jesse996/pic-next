@@ -9,7 +9,7 @@ import {GetStaticProps} from "next";
 
 export async function getStaticPaths() {
     let data: PageResp<Pic> = await getGirls({current: 1, size: 200})
-    let paths = data.records.map(i => ({params: {id: i.id}}))
+    let paths = data.records.map(i => ({params: {id: i.id.toString()}}))
     return {
         paths,
         fallback: true // See the "fallback" section below

@@ -5,7 +5,6 @@ import {message} from 'antd'
 // @ts-ignore
 import config from '~/config'
 
-// const MODE = import.meta.env.MODE // 环境变量
 
 // 拦截请求，给所有的请求都带上token
 if (process.browser) {
