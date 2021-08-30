@@ -9,8 +9,7 @@ import {useRouter} from "next/router";
 import Image from 'next/image'
 import MyLayout from "../../components/MyLayout";
 
-// eslint-disable-next-line react/display-name
-export default () => {
+const Index = () => {
     const router = useRouter()
     // let keyword = new URLSearchParams(useLocation().search).get('keyword')
     let keyword = router.query['keyword'] as string
@@ -72,4 +71,7 @@ export default () => {
             />
         </MyLayout>
     )
-}
+};
+
+// eslint-disable-next-line react/display-name
+export default Index;

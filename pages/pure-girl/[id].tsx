@@ -8,7 +8,7 @@ import {getPicDetail, getPureGirls} from "../../api";
 import {GetStaticProps} from "next";
 
 export async function getStaticPaths() {
-    let data: PageResp<Pic> = await getPureGirls({current: 1, size: 200})
+    let data: PageResp<Pic> = await getPureGirls({current: 1, size: 10000})
     let paths = data.records.map(i => ({params: {id: i.id.toString()}}))
     return {
         paths,
