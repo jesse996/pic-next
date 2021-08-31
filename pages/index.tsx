@@ -122,11 +122,11 @@ const Index = ({
 
     return (
         <MyLayout>
-            <MyTitle title="COSPLAY" path={'cosplay'}/>
-            <IndexImgList list={cosplayList} path="cosplay"/>
-
             <MyTitle title="清纯少女" path={'pure-girl'}/>
             <IndexImgList list={pureGirlList} path="pure-girl"/>
+
+            <MyTitle title="COSPLAY" path={'cosplay'}/>
+            <IndexImgList list={cosplayList} path="cosplay"/>
 
             <MyTitle title="性感妹子" path={'girl'}/>
             <IndexImgList list={girlList} path="girl"/>
