@@ -5,15 +5,15 @@ import {getNewsList, getPicDetail} from "../../api";
 import {NewsResp, PageResp} from "../../types";
 
 export const getStaticProps: GetStaticProps = async () => {
-    let data:PageResp<NewsResp> = await getNewsList({current:1,size:50})
+    let data: PageResp<NewsResp> = await getNewsList({current: 1, size: 50})
     return {
         props: {
-            data:data.records
+            data: data.records
         }
     }
 }
 
-export default function News({data}:InferGetStaticPropsType<typeof getStaticProps>) {
+export default function News({data}: InferGetStaticPropsType<typeof getStaticProps>) {
     return <MyLayout>
         <NewsList data={data}/>
     </MyLayout>

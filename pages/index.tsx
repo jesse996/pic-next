@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
         let news: PageResp<NewsResp> = await getNewsList({
             current: 1,
-            size: 2,
+            size: 20,
         })
         newsList = news.records
     } catch (e) {
@@ -132,7 +132,7 @@ const Index = ({
             <IndexImgList list={girlList} path="girl"/>
 
             <MyTitle title="最新资讯" path="news"/>
-            <NewsList count={10} data={newsList}/>
+            <NewsList data={newsList}/>
         </MyLayout>
     )
 }

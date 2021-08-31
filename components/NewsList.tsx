@@ -7,13 +7,12 @@ import {NewsResp, PageResp} from '../types'
 import IconText from './IconText'
 
 interface Props {
-    count?: number,
     data: NewsResp[]
 }
 
 const loadMoreCount = 10
 
-export default function NewsList({count, data}: Props) {
+export default function NewsList({data}: Props) {
     const [newsList, setNewsList] = useState<NewsResp[]>(data)
     const [list, setList] = useState<NewsResp[]>(data)
     const [loading, setLoading] = useState(false)
@@ -21,7 +20,7 @@ export default function NewsList({count, data}: Props) {
 
     const onLoadMore = async () => {
         setNewsList((newsList) =>
-            newsList.concat([...Array(count)].map(() => ({loading: true} as any)))
+            newsList.concat([...Array(loadMoreCount)].map(() => ({loading: true} as any)))
         )
         setLoading(true)
 

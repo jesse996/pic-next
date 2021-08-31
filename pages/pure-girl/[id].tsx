@@ -9,7 +9,7 @@ import {GetStaticProps} from "next";
 import {Spin} from "antd";
 
 export async function getStaticPaths() {
-    let data: PageResp<Pic> = await getPureGirls({current: 1, size: 500})
+    let data: PageResp<Pic> = await getPureGirls({current: 1, size: 300})
     let paths = data.records.map(i => ({params: {id: i.id.toString()}}))
     return {
         paths,
