@@ -8,7 +8,7 @@ import {PageResp, Pic} from "../../types";
 import {GetStaticPaths, GetStaticProps, InferGetStaticPropsType} from "next";
 
 export async function getStaticPaths() {
-    let data: PageResp<Pic> = await getCosplay({current: 1, size: 200})
+    let data: PageResp<Pic> = await getCosplay({current: 1, size: 100})
     let paths = data.records.map(i => {
         return {params: {id: i.id.toString()}}
     })
