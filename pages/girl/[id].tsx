@@ -7,13 +7,14 @@ import {PageResp, Pic} from "../../types";
 import {getCosplay, getGirls, getPicDetail} from "../../api";
 import {GetStaticProps} from "next";
 import Pay from "../../components/Pay";
+import {Spin} from "antd";
 
 export async function getStaticPaths() {
     let data: PageResp<Pic> = await getGirls({current: 1, size: 1000})
     let paths = data.records.map(i => ({params: {id: i.id.toString()}}))
     return {
         paths,
-        fallback: true // See the "fallback" section below
+        fallback: true
     };
 }
 
@@ -30,10 +31,12 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
 // @ts-ignore
 export default function GirlDetail({data}) {
-    const router =  useRouter()
-    let {id}= router.query
+    const router = useRouter()
+    if (router.isFallback){
+        return <Spin/>
+    }
+
     return <MyLayout>
         <PicDetail data={data}/>
-        <MyComment type={1} objId={Number(id)} />
     </MyLayout>
 }

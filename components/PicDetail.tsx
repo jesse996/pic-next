@@ -83,7 +83,7 @@ const PicDetail = ({data}: { data: Pic }) => {
             <Pay/>
 
             {/* 评论 */}
-            {/*<MyComment type={1} objId={Number(id)}/>*/}
+            <MyComment type={1} objId={data.id}/>
         </>
     )
 }

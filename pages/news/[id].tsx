@@ -8,6 +8,8 @@ import MyLayout from "../../components/MyLayout";
 import MyComment from '../../components/MyComment'
 import {PageResp, Pic} from "../../types";
 import {GetStaticProps} from "next";
+import Pay from "../../components/Pay";
+import {Spin} from "antd";
 
 
 interface NewsResp {
@@ -31,7 +33,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
-    console.log('params:',params)
+    console.log('params:', params)
     // @ts-ignore
     let data = await getNewsDetail(Number(params.id))
     return {
@@ -43,8 +45,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
 // @ts-ignore
 export default function NewsDetail({data}) {
-    // const { id } = useParams<{ id: string }>()
-    const {id} = useRouter().query
+    const router = useRouter()
+    if (router.isFallback) {
+        return <Spin/>
+    }
+    const {id} = router.query
 
     return (
         <MyLayout>
@@ -55,8 +60,8 @@ export default function NewsDetail({data}) {
                     __html: data?.content!,
                 }}
             />
-            {/*<Pay></Pay>*/}
-            <MyComment type={0} objId={Number(id)} />
+            <Pay/>
+            <MyComment type={0} objId={Number(id)}/>
         </MyLayout>
     )
 }
