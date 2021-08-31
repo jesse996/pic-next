@@ -43,7 +43,7 @@ const tabs: ITab[] = [
 ]
 
 function MyHeader() {
-    const [currentPath, setCurrentPath] = useState('/')
+    const [currentTab, setCurrentTab] = useState('')
     const [showMobileMenu, setShowMobileMenu] = useState(false)
     const dispatch = useAppDispatch()
     const router = useRouter()
@@ -61,15 +61,15 @@ function MyHeader() {
 
     //地址变化设置tab
     useEffect(() => {
-        let path = location.pathname
+        let path = router.pathname
         let match = tabs.slice(1).find((i) => path.startsWith(i.path))?.path || '/'
-        setCurrentPath(match)
+        setCurrentTab(match)
     }, [router.pathname])
 
     //pc点击导航
-    const handleChangeHeaderTab = (path: string) => {
-        console.log('click tab:', path)
-        setCurrentPath(path)
+    const handleChangeHeaderTab = async (path: string) => {
+        // setCurrentPath(path)
+        await router.push(path)
     }
 
     const mask = useRef<HTMLDivElement>(null)
@@ -88,11 +88,9 @@ function MyHeader() {
         setShowMobileMenu((i) => !i)
     }
 
-    // const history = useHistory()
     const handleSearch = async (value: string) => {
         if (!value) return
         setShowMobileMenu(false)
-        // history.push(`/search?keyword=${value}`)
         await router.push(`/search?keyword=${value}`)
     }
 
@@ -127,7 +125,7 @@ function MyHeader() {
             <div className={'fixed inset-x-0 h-16 z-20 bg-white md:hidden'}>
                 <div className={'h-full w-full px-4 flex justify-between items-center'}>
                     <div className={'text-xl '}>
-                        <Link href="/"><div>绅士社</div></Link>
+                        <Link href="/" passHref={true}><div>绅士社</div></Link>
                     </div>
                     <div
                         onClick={handleChangeShowMobileMenu}
@@ -155,7 +153,7 @@ function MyHeader() {
                 >
                     {tabs.map((tab) => (
                         <div key={tab.path}>
-                            <Link href={tab.path}><div>{tab.name}</div></Link>
+                            <Link href={tab.path} passHref={true}><div>{tab.name}</div></Link>
                         </div>
                     ))}
                     {userInfo ? null :
@@ -184,8 +182,7 @@ function MyHeader() {
                 >
                     <div className="w-full">
                         <Menu
-                            // onClick={handleClick}
-                            selectedKeys={[currentPath]}
+                            selectedKeys={[currentTab]}
                             mode="horizontal"
                         >
                             {tabs.map((tab) => (
@@ -194,7 +191,7 @@ function MyHeader() {
                                     title={tab.name}
                                     onClick={() => handleChangeHeaderTab(tab.path)}
                                 >
-                                    <Link href={tab.path}><div>{tab.name}</div></Link>
+                                    <div>{tab.name}</div>
                                 </Menu.Item>
                             ))}
                         </Menu>
