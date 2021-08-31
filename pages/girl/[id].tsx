@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 import {PageResp, Pic} from "../../types";
 import {getCosplay, getGirls, getPicDetail} from "../../api";
 import {GetStaticProps} from "next";
+import Pay from "../../components/Pay";
 
 export async function getStaticPaths() {
     let data: PageResp<Pic> = await getGirls({current: 1, size: 1000})

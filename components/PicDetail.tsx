@@ -10,6 +10,7 @@ import {setShowLoginModel} from '../store/slice/commonSlice'
 import {getPicDetail} from '../api'
 import {useRouter} from "next/router";
 import MyComment from "./MyComment";
+import Pay from "./Pay";
 // import Image from 'next/image'
 
 
@@ -79,7 +80,7 @@ const PicDetail = ({data}: { data: Pic }) => {
                 </div>
             </div>
 
-            {/*<Pay></Pay>*/}
+            <Pay/>
 
             {/* 评论 */}
             {/*<MyComment type={1} objId={Number(id)}/>*/}
