@@ -1,11 +1,22 @@
-import {getCosplay, getGirls} from '../../api'
+import {getGirls} from '../../api'
 import PicList from '../../components/PicList'
 import React from 'react'
-import MyLayout from "../../components/MyLayout";
+import {GetStaticProps, InferGetStaticPropsType} from "next";
+import {PageResp, Pic} from "../../types";
 
-export default function Girl() {
-    return <MyLayout>
+export const getStaticProps: GetStaticProps = async () => {
+    let data: PageResp<Pic> = await getGirls({current: 1, size: 40})
+
+    return {
+        props: {
+            initData: data.records,
+            total: data.total
+        }
+    }
+}
+export default function Girl({initData, total}: InferGetStaticPropsType<typeof getStaticProps>) {
+    return <>
         {process.browser ?
-            <PicList getList={getGirls} path="cosplay"/> : null}
-    </MyLayout>
+            <PicList getList={getGirls} path="cosplay" initData={initData} total={total}/> : null}
+    </>
 }

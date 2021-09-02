@@ -6,6 +6,7 @@ import {Provider} from 'react-redux'
 import {store} from '../store'
 import {memo, useEffect, useRef} from "react";
 import {useRouter} from "next/router";
+import MyLayout from "../components/MyLayout";
 
 const ROUTES_TO_RETAIN = ['/','/girl','/pure-girl','/news','/cosplay']
 
@@ -64,7 +65,7 @@ function MyApp({Component, pageProps}: AppProps) {
                 </div>
             ))}
         </div>
-        {!isRetainableRoute && <Component {...pageProps} />}
+        {!isRetainableRoute && <MyLayout><Component {...pageProps} /></MyLayout>}
     </Provider>
 }
 

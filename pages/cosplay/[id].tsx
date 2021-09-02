@@ -34,11 +34,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 // @ts-ignore
 const CosplayDetail = ({picDetail}) => {
     const router = useRouter()
-    return <MyLayout>
+    return <>
         {router.isFallback ?
             <div>loading...</div> :
             <PicDetail data={picDetail}/>
         }
-    </MyLayout>
+    </>
 }
 export default CosplayDetail

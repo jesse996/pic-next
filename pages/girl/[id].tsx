@@ -36,7 +36,7 @@ export default function GirlDetail({data}) {
         return <Spin/>
     }
 
-    return <MyLayout>
+    return <>
         <PicDetail data={data}/>
-    </MyLayout>
+    </>
 }

@@ -11,26 +11,26 @@ import {EyeOutlined} from '@ant-design/icons'
 
 interface Props {
     getList: (pageReq?: PageReq) => Promise<PageResp<Pic>>
-    path: string
+    path: string,
+    initData:Pic[],
+    total:number
 }
 
-const size = 40
-
-const PicList: React.FC<Props> = ({getList, path}) => {
-    const [notLoadingList, setList] = useState<Pic[]>([]) //只包含加载完的
-    const [cosplayList, setCosplayList] = useState<Pic[]>([])
-    const [totalCount, setTotalCount] = useState(0)
-
-    //第一次加载数据
-    useEffect(() => {
-        ;(async () => {
-            // let data: PageResp<Pic> = await getCosplay({ page: 1, size: 30 })
-            let data: PageResp<Pic> = await getList({current: 1, size})
-            setCosplayList(data.records)
-            setList(data.records)
-            setTotalCount(data.total)
-        })()
-    }, [getList])
+const PicList: React.FC<Props> = ({getList, path,initData,total}) => {
+    const [notLoadingList, setList] = useState<Pic[]>(initData) //只包含加载完的
+    const [cosplayList, setCosplayList] = useState<Pic[]>(initData)
+    // const [totalCount, setTotalCount] = useState(0)
+    //
+    // //第一次加载数据
+    // useEffect(() => {
+    //     ;(async () => {
+    //         // let data: PageResp<Pic> = await getCosplay({ page: 1, size: 30 })
+    //         let data: PageResp<Pic> = await getList({current: 1, size})
+    //         setCosplayList(data.records)
+    //         setList(data.records)
+    //         setTotalCount(data.total)
+    //     })()
+    // }, [getList])
 
     // eslint-disable-next-line react/display-name
     const innerElementType = forwardRef<any, any>(({style, ...rest}, ref) => (
@@ -151,7 +151,7 @@ const PicList: React.FC<Props> = ({getList, path}) => {
                     {({height, width}) => (
                         <InfiniteLoader
                             isItemLoaded={isItemLoaded}
-                            itemCount={totalCount}
+                            itemCount={total}
                             loadMoreItems={loadMoreItems}
                         >
                             {({onItemsRendered, ref}) => (

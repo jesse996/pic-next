@@ -14,7 +14,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export default function News({data}: InferGetStaticPropsType<typeof getStaticProps>) {
-    return <MyLayout>
+    return <>
         <NewsList data={data}/>
-    </MyLayout>
+    </>
 }

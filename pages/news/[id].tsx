@@ -52,7 +52,7 @@ export default function NewsDetail({data}) {
     const {id} = router.query
 
     return (
-        <MyLayout>
+        <>
             <div
                 id="news-root"
                 className="w-full max-w-screen object-scale-down"
@@ -62,6 +62,6 @@ export default function NewsDetail({data}) {
             />
             <Pay/>
             <MyComment type={0} objId={Number(id)}/>
-        </MyLayout>
+        </>
     )
 }
