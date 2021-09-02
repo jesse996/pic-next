@@ -1,5 +1,5 @@
 import React, {forwardRef, useCallback, useEffect, useState} from 'react'
-import {Button, Card, List,Image, Skeleton, message} from 'antd'
+import {Button, Card, List, Image, Skeleton, message} from 'antd'
 import Link from 'next/link'
 import {PageReq, PageResp, Pic} from '../types'
 import AutoSizer from 'react-virtualized-auto-sizer'
@@ -7,16 +7,17 @@ import {FixedSizeGrid as Grid} from 'react-window'
 import {useGetSize} from '../utils'
 import InfiniteLoader from 'react-window-infinite-loader'
 import {EyeOutlined} from '@ant-design/icons'
+
 // import Image from 'next/image'
 
 interface Props {
     getList: (pageReq?: PageReq) => Promise<PageResp<Pic>>
     path: string,
-    initData:Pic[],
-    total:number
+    initData: Pic[],
+    total: number
 }
 
-const PicList: React.FC<Props> = ({getList, path,initData,total}) => {
+const PicList: React.FC<Props> = ({getList, path, initData, total}) => {
     const [notLoadingList, setList] = useState<Pic[]>(initData) //只包含加载完的
     const [cosplayList, setCosplayList] = useState<Pic[]>(initData)
     // const [totalCount, setTotalCount] = useState(0)
@@ -69,27 +70,47 @@ const PicList: React.FC<Props> = ({getList, path,initData,total}) => {
         }
     }
 
-    //设置列数
-    const [columnCount, setColumnCount] = useState(4)
+    //---
+    const [size, setSize] = useState({
+        width: 0,
+        height: 0,
+    })
 
-    let windowSize = useGetSize()
     useEffect(() => {
+        setSize({
+            width: document.documentElement.clientWidth,
+            height: document.documentElement.clientHeight,
+        })
+
+    }, [])
+
+    const onResize = useCallback(() => {
+        setSize({
+            width: document.documentElement.clientWidth,
+            height: document.documentElement.clientHeight,
+        })
+    }, [])
+
+    useEffect(() => {
+        window.addEventListener('resize', onResize)
+        return () => {
+            window.removeEventListener('resize', onResize)
+        }
+    }, [onResize])
+
+    //设置列数
+    const [columnCount, setColumnCount] = useState(2)
+
+    useEffect(() => {
+        let widthWidth = size.width
         let colCount = 4
-        if (windowSize.width < 768) {
+        if (widthWidth < 768) {
             colCount = 2
         }
 
         setColumnCount(colCount)
-    }, [windowSize.width])
+    }, [size])
 
-    useEffect(() => {
-        if (windowSize.width < 768) {
-            setColumnCount(2)
-        } else {
-            setColumnCount(4)
-        }
-    }, [windowSize])
-    //---------------
 
     const isItemLoaded = (index: number) => !!cosplayList[index]
 

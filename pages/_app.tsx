@@ -22,7 +22,7 @@ function MyApp({Component, pageProps}: AppProps) {
         const MemoComponent = memo(Component)
         // @ts-ignore
         retainedComponents.current[router.asPath] = {
-            component: <MemoComponent {...pageProps} />,
+            component: <MyLayout><MemoComponent {...pageProps} /></MyLayout>,
             scrollPos: 0
         }
     }
