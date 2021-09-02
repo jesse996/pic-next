@@ -16,8 +16,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function Cosplay({initData, total}: InferGetStaticPropsType<typeof getStaticProps>) {
     return <>{
-        process.browser ?
-            <PicList getList={getCosplay} path="cosplay" initData={initData} total={total}/> : null
+            <PicList getList={getCosplay} path="cosplay" initData={initData} total={total}/>
     }</>
 
 }
