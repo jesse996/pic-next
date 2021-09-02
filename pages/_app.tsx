@@ -8,7 +8,7 @@ import {memo, useEffect, useRef} from "react";
 import {useRouter} from "next/router";
 import MyLayout from "../components/MyLayout";
 
-const ROUTES_TO_RETAIN = ['/','/girl','/pure-girl','/news','/cosplay']
+const ROUTES_TO_RETAIN = ['/', '/girl', '/pure-girl', '/news', '/cosplay']
 
 function MyApp({Component, pageProps}: AppProps) {
     const router = useRouter()
@@ -22,7 +22,7 @@ function MyApp({Component, pageProps}: AppProps) {
         const MemoComponent = memo(Component)
         // @ts-ignore
         retainedComponents.current[router.asPath] = {
-            component: <MyLayout><MemoComponent {...pageProps} /></MyLayout>,
+            component: <MemoComponent {...pageProps} />,
             scrollPos: 0
         }
     }
@@ -54,18 +54,20 @@ function MyApp({Component, pageProps}: AppProps) {
 
     // return <Component {...pageProps} />
     return <Provider store={store}>
-        <div style={{display: isRetainableRoute ? 'block' : 'none'}}>
-            {Object.entries(retainedComponents.current).map(([path, c]) => (
-                <div
-                    key={path}
-                    style={{display: router.asPath === path ? 'block' : 'none'}}
-                >
-                    {// @ts-ignore
-                        c.component}
-                </div>
-            ))}
-        </div>
-        {!isRetainableRoute && <MyLayout><Component {...pageProps} /></MyLayout>}
+        <MyLayout>
+            <div style={{display: isRetainableRoute ? 'block' : 'none'}}>
+                {Object.entries(retainedComponents.current).map(([path, c]) => (
+                    <div
+                        key={path}
+                        style={{display: router.asPath === path ? 'block' : 'none'}}
+                    >
+                        {// @ts-ignore
+                            c.component}
+                    </div>
+                ))}
+            </div>
+            {!isRetainableRoute && <Component {...pageProps} />}
+        </MyLayout>
     </Provider>
 }
 
