@@ -121,7 +121,7 @@ const Index = ({
     )
 
     return (
-        <MyLayout>
+        <>
             <MyTitle title="清纯少女" path={'pure-girl'}/>
             <IndexImgList list={pureGirlList} path="pure-girl"/>
 
@@ -133,7 +133,7 @@ const Index = ({
 
             <MyTitle title="最新资讯" path="news"/>
             <NewsList data={newsList}/>
-        </MyLayout>
+        </>
     )
 }
 
