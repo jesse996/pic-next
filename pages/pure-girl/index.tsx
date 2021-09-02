@@ -7,8 +7,8 @@ export const getStaticProps: GetStaticProps = async () => {
     let data: PageResp<Pic> = await getPureGirls({current: 1, size: 50})
     return {
         props: {
-            data: data.records,
-            total:data.total
+            initData: data.records,
+            total: data.total
         }
     }
 }

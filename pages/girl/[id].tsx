@@ -1,12 +1,9 @@
 import PicDetail from '../../components/PicDetail'
 import React from 'react'
-import MyLayout from "../../components/MyLayout";
-import MyComment from "../../components/MyComment";
 import {useRouter} from "next/router";
 import {PageResp, Pic} from "../../types";
-import {getCosplay, getGirls, getPicDetail} from "../../api";
+import {getGirls, getPicDetail} from "../../api";
 import {GetStaticProps} from "next";
-import Pay from "../../components/Pay";
 import {Spin} from "antd";
 
 export async function getStaticPaths() {
@@ -19,7 +16,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
-    console.log('params:',params)
+    console.log('params:', params)
     // @ts-ignore
     let data = await getPicDetail(Number(params.id))
     return {
@@ -32,7 +29,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 // @ts-ignore
 export default function GirlDetail({data}) {
     const router = useRouter()
-    if (router.isFallback){
+    if (router.isFallback) {
         return <Spin/>
     }
 

@@ -19,19 +19,7 @@ interface Props {
 
 const PicList: React.FC<Props> = ({getList, path, initData, total}) => {
     const [notLoadingList, setList] = useState<Pic[]>(initData) //只包含加载完的
-    const [cosplayList, setCosplayList] = useState<Pic[]>(initData)
-    // const [totalCount, setTotalCount] = useState(0)
-    //
-    // //第一次加载数据
-    // useEffect(() => {
-    //     ;(async () => {
-    //         // let data: PageResp<Pic> = await getCosplay({ page: 1, size: 30 })
-    //         let data: PageResp<Pic> = await getList({current: 1, size})
-    //         setCosplayList(data.records)
-    //         setList(data.records)
-    //         setTotalCount(data.total)
-    //     })()
-    // }, [getList])
+    const [picList, setPicList] = useState<Pic[]>(initData)
 
     // eslint-disable-next-line react/display-name
     const innerElementType = forwardRef<any, any>(({style, ...rest}, ref) => (
@@ -63,10 +51,10 @@ const PicList: React.FC<Props> = ({getList, path, initData, total}) => {
                 content: '到底了~',
                 duration: 3,
             })
-            setCosplayList(notLoadingList)
+            setPicList(notLoadingList)
         } else {
             setList(notLoadingList.concat(data.records))
-            setCosplayList(notLoadingList.concat(data.records))
+            setPicList(notLoadingList.concat(data.records))
         }
     }
 
@@ -112,14 +100,14 @@ const PicList: React.FC<Props> = ({getList, path, initData, total}) => {
     }, [size])
 
 
-    const isItemLoaded = (index: number) => !!cosplayList[index]
+    const isItemLoaded = (index: number) => !!picList[index]
 
     const GUTTER_SIZE = 5
 
     const Cell = (props: any) => {
         const {columnIndex, rowIndex, style} = props
         let index = rowIndex * columnCount + columnIndex
-        let item = cosplayList[index]
+        let item = picList[index]
         return (
             <div
                 key={index}
@@ -183,7 +171,7 @@ const PicList: React.FC<Props> = ({getList, path, initData, total}) => {
                                     columnWidth={width / columnCount}
                                     height={height}
                                     width={width}
-                                    rowCount={cosplayList.length / columnCount}
+                                    rowCount={picList?.length / columnCount}
                                     rowHeight={290}
                                     innerElementType={innerElementType}
                                     onItemsRendered={(gridProps) => {
