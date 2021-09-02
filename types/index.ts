@@ -10,6 +10,12 @@ export interface PageReq {
   size: number
 }
 
+export interface CommonResp{
+  code:number,
+  msg:string,
+  data:any
+}
+
 export interface Pic {
   createTime: string
   description?: string

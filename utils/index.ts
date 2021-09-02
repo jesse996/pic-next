@@ -1,9 +1,9 @@
-import axios from 'axios'
-import {useCallback, useState, useEffect} from 'react'
-import {message} from 'antd'
+import Axios from 'axios'
+import {useCallback, useEffect, useState} from 'react'
+import {CommonResp} from "../types";
+import {message} from "antd";
 
-// @ts-ignore
-import config from '~/config'
+let axios = Axios.create()
 
 
 // 拦截请求，给所有的请求都带上token
@@ -21,9 +21,10 @@ if (process.browser) {
 // 添加响应拦截器
 axios.interceptors.response.use(
     (res) => {
+        // return res.data
         let data = res.data
         if (data.code !== 0) {
-            return Promise.reject(data.msg)
+            return Promise.reject(data.msg +';data.code != 0')
         } else {
             return data
         }
@@ -31,43 +32,40 @@ axios.interceptors.response.use(
     async (error) => {
         console.log('response interceptors err:', JSON.stringify(error))
         // 对响应错误做点什么
-        return Promise.reject(JSON.stringify(error))
+        return Promise.reject(error)
     }
 )
 
-
 const getRequest = (method: string) => {
-    return (url: string, data: any = null, options: any = {}) => {
-        // let base = config[MODE] // 获取环境变量相对应的属性值
-
-        // @ts-ignore
-        return axios({
-            baseURL: process.env.NEXT_PUBLIC_BASE, // 请求域名地址
-            method,
-            url,
-            ...(method === 'POST'
-                ? {
-                    // data: options.string ? stringify(data) : data,
-                    data: data,
-                }
-                : {}),
-            params: method === 'GET' ? data : options.params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': options.string
-                    ? 'application/x-www-form-urlencoded'
-                    : 'application/json',
-                ...options.headers,
-            },
-            withCredentials: true,
-        })
-            .then((res) => {
-                return res.data
+    return async (url: string, data: any = null, options: any = {}) => {
+        try {
+            let res = await axios.request<any, CommonResp>({
+                baseURL: process.env.NEXT_PUBLIC_BASE, // 请求域名地址
+                // @ts-ignore
+                method,
+                url,
+                ...(method === 'POST'
+                    ? {
+                        // data: options.string ? stringify(data) : data,
+                        data: data,
+                    }
+                    : {}),
+                params: method === 'GET' ? data : options.params,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': options.string
+                        ? 'application/x-www-form-urlencoded'
+                        : 'application/json',
+                    ...options.headers,
+                },
+                withCredentials: true,
             })
-            .catch((err) => {
-                console.log(err)
-                return Promise.reject(err)
-            })
+            return res.data
+        } catch (e) {
+            console.log('res err:', e)
+            message.error(JSON.stringify(e))
+            return Promise.reject(e)
+        }
     }
 }
 

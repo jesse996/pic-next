@@ -8,7 +8,8 @@ const withMDX = require('@next/mdx')({
 })
 
 module.exports = withMDX({
-    pageExtensions: ['js', 'jsx','tsx', 'md', 'mdx'], ...withAntdLess({
+        pageExtensions: ['js', 'jsx', 'tsx', 'md', 'mdx'], generateEtags: false,
+    ...withAntdLess({
 // module.exports = withAntdLess({
         // optional
         modifyVars: {'@primary-color': '#04f'},
@@ -29,4 +30,5 @@ module.exports = withMDX({
             domains: ['tva1.sinaimg.cn', 'tva4.sinaimg.cn', 'jdlingyu.com', 'www.jdlingyu.com'],
         },
     })
-});
+})
+;

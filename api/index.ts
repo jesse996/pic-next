@@ -11,8 +11,9 @@ export function getCarousel() {
 
 /**
  *
- * @param data 获取图片列表
  * @returns
+ * @param pageReq
+ * @param type
  */
 export function getPicList(pageReq: PageReq, type: number) {
     return post('pic/list', {...pageReq, data: {type}})
@@ -55,7 +56,7 @@ export function getGirls(pageReq?: PageReq) {
  * @returns
  * @param pageReq
  */
-export function getPureGirls(pageReq?: PageReq) {
+export function getPureGirls(pageReq?: PageReq):Promise<any> {
     return post('pic/list', {
         current: 1,
         size: 4,
