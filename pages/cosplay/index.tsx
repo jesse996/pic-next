@@ -5,10 +5,7 @@ import {PageResp, Pic} from "../../types";
 import axios from "axios";
 
 export const getStaticProps: GetStaticProps = async () => {
-    // let data: PageResp<Pic> = await getCosplay({current: 1, size: 40})
-
-    let data: PageResp<Pic> =  await getCosplay()
-    console.log('data:', data)
+    let data: PageResp<Pic> =  await getCosplay({current: 1, size: 40})
 
     return {
         props: {

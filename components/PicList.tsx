@@ -88,13 +88,18 @@ const PicList: React.FC<Props> = ({getList, path, initData, total}) => {
 
     //设置列数
     const [columnCount, setColumnCount] = useState(2)
-
+    const [isMobile, setIsMobile] = useState(true)
     useEffect(() => {
         let widthWidth = size.width
-        let colCount = 4
+        let colCount
         if (widthWidth < 768) {
             colCount = 2
+            setIsMobile(true)
+        } else {
+            colCount = 4
+            setIsMobile(false)
         }
+
 
         setColumnCount(colCount)
     }, [size])
@@ -121,32 +126,34 @@ const PicList: React.FC<Props> = ({getList, path, initData, total}) => {
                 className="overflow-hidden"
             >
                 <Skeleton title={false} loading={item.loading}>
-                    <Link href={`/${path}/${item.id}`} passHref={true}>
-                        <Card
-                            // style={{ height: '350px' }}
-                            cover={
-                                <div
-                                    style={{height: '200px', display: 'flex'}}
-                                    className="justify-center items-center max-w-full overflow-hidden  text-center"
-                                >
-                                    <Image
-                                        src={item.coverImg}
-                                        // layout={'fill'}
-                                        alt={'img'}
-                                        className={'object-cove'}
-                                        // fallback="https://img95.699pic.com/xsj/0x/qx/8l.jpg!/fh/300"
-                                        preview={false}
-                                    />
+                    <Link href={`/${path}/${item.id}`}>
+                        <a>
+                            <Card
+                                // style={{ height: '350px' }}
+                                cover={
                                     <div
-                                        className=" flex justify-end items-center absolute bottom-0 right-0 w-full m-2">
-                                        <EyeOutlined className="mr-2"/>
-                                        {item.viewCount}
+                                        style={{height: '200px', display: 'flex'}}
+                                        className="justify-center items-center max-w-full overflow-hidden  text-center"
+                                    >
+                                        <Image
+                                            src={item.coverImg}
+                                            // layout={'fill'}
+                                            alt={'img'}
+                                            className={'object-cove'}
+                                            // fallback="https://img95.699pic.com/xsj/0x/qx/8l.jpg!/fh/300"
+                                            preview={false}
+                                        />
+                                        <div
+                                            className=" flex justify-end items-center absolute bottom-0 right-0 w-full m-2">
+                                            <EyeOutlined className="mr-2"/>
+                                            {item.viewCount}
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                        >
-                            <Card.Meta title={item.title} className="truncate  h-10"/>
-                        </Card>
+                                }
+                            >
+                                <Card.Meta title={item.title} className="truncate  h-10"/>
+                            </Card>
+                        </a>
                     </Link>
                 </Skeleton>
             </div>
@@ -170,7 +177,7 @@ const PicList: React.FC<Props> = ({getList, path, initData, total}) => {
                                     columnCount={columnCount}
                                     columnWidth={width / columnCount}
                                     height={height}
-                                    width={width}
+                                    width={width + (isMobile ? 0 : 20)}
                                     rowCount={picList?.length / columnCount}
                                     rowHeight={290}
                                     innerElementType={innerElementType}
