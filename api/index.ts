@@ -115,6 +115,16 @@ export function signUp(data: SignUp) {
 }
 
 /**
+ * 发送注册验证码
+ */
+interface SendSignUpCodeReq{
+    email:string
+}
+export function sendSignUpCode(data:SendSignUpCodeReq){
+    return post('/user/sendSignUpCode',data)
+}
+
+/**
  * 登录
  */
 export function signIn(data: SignIn) {

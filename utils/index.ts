@@ -24,7 +24,7 @@ axios.interceptors.response.use(
         // return res.data
         let data = res.data
         if (data.code !== 0) {
-            return Promise.reject(data.msg +';data.code != 0')
+            return Promise.reject(data.msg)
         } else {
             return data
         }
@@ -61,9 +61,8 @@ const getRequest = (method: string) => {
                 withCredentials: true,
             })
             return res.data
-        } catch (e) {
-            console.log('res err:', e)
-            message.error(JSON.stringify(e))
+        } catch (e:any) {
+            message.error(e.toString())
             return Promise.reject(e)
         }
     }
