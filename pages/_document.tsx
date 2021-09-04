@@ -11,6 +11,7 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <title>妹子图 绅士社</title>
+                    <link rel="shortcut icon" href="/favicon.svg" />
                     <script dangerouslySetInnerHTML={{
                         __html: ` var _hmt = _hmt || [];
                         (function() {
