@@ -46,7 +46,7 @@ export default function SignUp() {
         let email = form.getFieldValue('username')
         console.log('email:', email)
         try {
-            setLeftTime(6)
+            setLeftTime(60)
             let t = setInterval(() => {
                 setLeftTime(t => t - 1)
             }, 1000);
