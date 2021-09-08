@@ -12,6 +12,7 @@ import {DownOutlined, MenuOutlined, UserOutlined} from '@ant-design/icons'
 import {getCurrentUser, logout, search, sendActivateEmail} from '../api'
 import {useRouter} from "next/router";
 import Link from 'next/link'
+import PayVip from "./PayVip";
 
 interface ITab {
     name: string
@@ -45,6 +46,7 @@ const tabs: ITab[] = [
 function MyHeader() {
     const [currentTab, setCurrentTab] = useState('')
     const [showMobileMenu, setShowMobileMenu] = useState(false)
+    const [showVip, setShowVip] = useState(false)
     const dispatch = useAppDispatch()
     const router = useRouter()
 
@@ -88,12 +90,14 @@ function MyHeader() {
         setShowMobileMenu((i) => !i)
     }
 
+    //搜索
     const handleSearch = async (value: string) => {
         if (!value) return
         setShowMobileMenu(false)
         await router.push(`/search?keyword=${value}`)
     }
 
+    //推出
     const handleLogout = async () => {
         await logout()
         localStorage.removeItem('jwt_token')
@@ -110,22 +114,63 @@ function MyHeader() {
         }
     }
 
+    //充值会员
+    const handlePayVip = async () => {
+        // console.log('pay vip')
+        setShowVip(true)
+    }
+
     const DropDownMenu = () => (
         <Menu>
             <Menu.Item key={0}>
                 <div onClick={handleLogout}>退出</div>
-                <div onClick={handleActivate}>激活账号</div>
+                {/*<div onClick={handleActivate}>激活账号</div>*/}
+                <div onClick={handlePayVip}>充值会员</div>
             </Menu.Item>
         </Menu>
     )
 
+    const UserInfo = (props: any) => {
+        return userInfo ? (
+            <Dropdown
+                {...props}
+                overlay={DropDownMenu}
+                placement="bottomCenter"
+                arrow
+                className="flex justify-center items-center"
+            >
+                <div className="w-full pl-4 cursor-pointer">
+                    <UserOutlined className="mr-1"/>
+                    {userInfo.nickname}
+                    <DownOutlined className=" ring-blue-300"/>
+                </div>
+            </Dropdown>
+        ) : (
+            <>
+                {/* <Button onClick={() => setLoginVisible(true)}>登录</Button> */}
+                <Button onClick={() => dispatch(setShowLoginModel(true))}>
+                    登录
+                </Button>
+                <Button
+                    type={'primary'}
+                    onClick={() => {
+                        dispatch(setShowSignUpModel(true))
+                    }}
+                >
+                    注册
+                </Button>
+            </>
+        )
+    }
     return (
         <div className="max-w-full">
             {/* 手机版菜单 ,高度16，px-4*/}
             <div className={'fixed inset-x-0 h-16 z-20 bg-white md:hidden'}>
                 <div className={'h-full w-full px-4 flex justify-between items-center'}>
                     <div className={'text-xl '}>
-                        <Link href="/" passHref={true}><div>绅士社</div></Link>
+                        <Link href="/" passHref={true}>
+                            <div>绅士社</div>
+                        </Link>
                     </div>
                     <div
                         onClick={handleChangeShowMobileMenu}
@@ -153,15 +198,12 @@ function MyHeader() {
                 >
                     {tabs.map((tab) => (
                         <div key={tab.path}>
-                            <Link href={tab.path} passHref={true}><div>{tab.name}</div></Link>
+                            <Link href={tab.path} passHref={true}>
+                                <div>{tab.name}</div>
+                            </Link>
                         </div>
                     ))}
-                    {userInfo ? null :
-                        <div className={'text-center'}>
-                            <Button onClick={() => dispatch(setShowLoginModel(true))}>登录</Button>
-                            <Button onClick={() => dispatch(setShowSignUpModel(true))}>注册</Button>
-                        </div>
-                    }
+                    <UserInfo onClick={(e: any) => e.stopPropagation()}/>
                     <Search
                         allowClear={true}
                         className={'flex justify-center items-center'}
@@ -198,41 +240,13 @@ function MyHeader() {
                     </div>
                     <div className={'flex justify-between items-center'}>
                         <Search allowClear={true} onSearch={handleSearch}/>
-
-                        {userInfo ? (
-                            <Dropdown
-                                overlay={DropDownMenu}
-                                placement="bottomCenter"
-                                arrow
-                                className="flex justify-center items-center"
-                            >
-                                <div className="w-full pl-4 cursor-pointer">
-                                    <UserOutlined className="mr-1"/>
-                                    {userInfo.nickname}
-                                    <DownOutlined className=" ring-blue-300"/>
-                                </div>
-                            </Dropdown>
-                        ) : (
-                            <>
-                                {/* <Button onClick={() => setLoginVisible(true)}>登录</Button> */}
-                                <Button onClick={() => dispatch(setShowLoginModel(true))}>
-                                    登录
-                                </Button>
-                                <Button
-                                    type={'primary'}
-                                    onClick={() => {
-                                        dispatch(setShowSignUpModel(true))
-                                    }}
-                                >
-                                    注册
-                                </Button>
-                            </>
-                        )}
+                        <UserInfo/>
                     </div>
                 </div>
             </div>
             <Login/>
             <SignUp/>
+            <PayVip showPay={showVip} setShowPay={setShowVip}/>
         </div>
     )
 }

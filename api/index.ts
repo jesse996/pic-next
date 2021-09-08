@@ -56,7 +56,7 @@ export function getGirls(pageReq?: PageReq) {
  * @returns
  * @param pageReq
  */
-export function getPureGirls(pageReq?: PageReq):Promise<any> {
+export function getPureGirls(pageReq?: PageReq): Promise<any> {
     return post('pic/list', {
         current: 1,
         size: 4,
@@ -117,11 +117,12 @@ export function signUp(data: SignUp) {
 /**
  * 发送注册验证码
  */
-interface SendSignUpCodeReq{
-    email:string
+interface SendSignUpCodeReq {
+    email: string
 }
-export function sendSignUpCode(data:SendSignUpCodeReq){
-    return post('/user/sendSignUpCode',data)
+
+export function sendSignUpCode(data: SendSignUpCodeReq) {
+    return post('/user/sendSignUpCode', data)
 }
 
 /**
@@ -207,6 +208,6 @@ export function payWap(orderId: number, redirect: string) {
 /**
  * 获取订单
  */
-export function getOrder(type: number, targetId: number, amount: number) {
-    return post('/pay/getOrder', {type, targetId, amount})
+export function getOrder(type: number,  amount: number, targetId?: number,extra?: string) {
+    return post('/pay/getOrder', {type, targetId, amount, extra})
 }

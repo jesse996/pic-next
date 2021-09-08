@@ -6,22 +6,17 @@ import Modal from 'antd/lib/modal/Modal'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import aliImg from '../../assets/zfb.png'
 import {useRouter} from "next/router";
+import {router} from "next/client";
 
-const Pay = () => {
-    const [aliForm, setAliForm] = useState('')
+const PRICE_PER_MONTH = 10
+const PayVip = ({showPay, setShowPay}: { showPay: boolean, setShowPay: (v:boolean) => void }) => {
     const [isEditAmount, setIsEditAmount] = useState(false)
-    const [amount, setAmount] = useState(2)
-    const [inputValue, setInputValue] = useState(1)
-    const [checkValue, setCheckValue] = useState(true)
-    const [showPay, setShowPay] = useState(false)
-
-    const router = useRouter();
-    let {id} = router.query
-
-
-    const doPayPc = async () => {
-        window.open('/pay?redirect=' + location.href, '_blank')
-    }
+    //月数
+    const [amount, setAmount] = useState(1)
+    const [payValue, setPayValue] = useState(PRICE_PER_MONTH)
+    const [inputValue, setInputValue] = useState(2)
+    const [checkValue, _] = useState(true)
+    // const [showPay, setShowPay] = useState(false)
 
     const handleInputChange = (e: any) => {
         console.log(e.target.value)
@@ -34,16 +29,14 @@ const Pay = () => {
         setAmount(v)
     }
 
-    const doPayWap = async () => {
-        window.open('/pay?redirect=' + location.href, '_blank')
-    }
+    useEffect(() => {
+        setPayValue(amount * PRICE_PER_MONTH * (amount >= 6 ? 0.8 : 1))
+    }, [amount])
 
     const handleClickAmount = useCallback((amount: number) => {
         setIsEditAmount(false)
         setAmount(amount)
     }, [])
-
-    const inputRef = useRef<HTMLInputElement>(null)
 
     const handleChickEdit = useCallback(() => {
         setIsEditAmount(true)
@@ -53,22 +46,19 @@ const Pay = () => {
     //点击支付
     const handlePay = useCallback(async () => {
         setShowPay(false)
-        await router.push(`/pay?redirect=${location.href}&amount=${amount}&objId=${id}&type=0`)
-    }, [amount, id, router])
+        await router.push(`/pay?redirect=${location.href}&amount=${payValue}&extra=${amount}&type=3`)
+    }, [amount, payValue])
 
-    useEffect(() => {
-        inputRef.current?.focus()
-    }, [])
 
-    const moneyList = [2, 5, 10, 20, 50]
+    //购买月数
+    const chooseList = [1, 6, 12]
 
     return (
         <>
             <Modal visible={showPay} onCancel={() => setShowPay(false)} footer={null}>
-                <div className="pl-3 pt-3">给妹子图打赏</div>
-                <div className="text-center text-lg">请作者喝杯水吧~</div>
+                <div className="text-center text-lg">充值vip</div>
                 <div className="grid grid-cols-3 mx-5 py-3 ">
-                    {moneyList.map((i) => (
+                    {chooseList.map((i) => (
                         <div
                             className={`flex justify-center items-center border py-2 hover:bg-red-100 cursor-pointer ${
                                 amount === i ? 'bg-red-100' : ''
@@ -76,8 +66,7 @@ const Pay = () => {
                             onClick={() => handleClickAmount(i)}
                             key={i}
                         >
-                            <DollarCircleOutlined className=""/>
-                            <span>{i}元</span>
+                            <span>{i}个月</span>
                         </div>
                     ))}
 
@@ -92,25 +81,19 @@ const Pay = () => {
                                 isEditAmount ? 'block' : 'hidden'
                             }`}
                         >
-                            <DollarCircleOutlined className=""/>
                             <input
-                                ref={inputRef}
                                 className="w-6 mx-2 outline-none border appearance-none"
                                 value={inputValue}
                                 onChange={handleInputChange}
                             />
-                            元
+                            个月
                         </div>
-                        <span
-                            className={`absolute ${isEditAmount ? 'invisible' : 'visible'}`}
-                        >
-              自定义
-            </span>
+                        <span className={` ${isEditAmount ? 'invisible' : 'visible'}`}>自定义</span>
                     </div>
                 </div>
                 <div className="flex justify-center items-center py-2">
                     <i className="text-lg">￥</i>
-                    <span className="ml-1 text-2xl">{amount}</span>
+                    <span className="ml-1 text-2xl">{payValue}</span>
                 </div>
 
                 {/* 选择支付宝 */}
@@ -123,8 +106,8 @@ const Pay = () => {
                             onChange={() => {
                             }}
                             className="mr-2"
-                        ></input>
-                        <img src={'/zfb.png'} width={70} alt={'ali'}></img>
+                        />
+                        <img src={'/zfb.png'} width={70} alt={'ali'}/>
                     </div>
                     <div className="w-full ">
                         <Button
@@ -139,31 +122,8 @@ const Pay = () => {
                     </div>
                 </div>
             </Modal>
-            <div className="bg-yellow-50 flex justify-between items-center py-3 px-5 md:px-8 mt-2">
-                <div className="flex flex-col justify-start items-start">
-                    <span className="text-lg">点点赞赏，手留余香</span>
-                    <span className="text-lg">请我喝杯水吧！</span>
-                </div>
-                <button
-                    onClick={() => setShowPay(true)}
-                    className="hidden md:block bg-red-400 px-3 py-2 text-base text-white visited:text-white"
-                >
-                    赞赏
-                </button>
-                <button
-                    onClick={() => {
-                        setShowPay(true)
-                    }}
-                    className="md:hidden bg-red-400 px-3 py-2 text-base text-white visited:text-white"
-                >
-                    赞赏
-                </button>
-            </div>
-            {aliForm ? (
-                <div dangerouslySetInnerHTML={{__html: aliForm}}></div>
-            ) : null}
         </>
     )
 }
 
-export default Pay
+export default PayVip

@@ -6,15 +6,13 @@ const PayPage = () => {
     const [content, setContent] = useState('创建订单中...')
     const [aliForm, setAliForm] = useState('')
     const router = useRouter()
-    const {type, objId, amount, redirect} = router.query
+    const {type, objId, amount, redirect, extra} = router.query
 
 
     useEffect(() => {
         ;(async () => {
             if (!(amount && type)) return router.replace('/')
-
-            let {orderId} = await getOrder(+type, Number(objId) || 0, +amount * 100)
-            // let query = useQuery()
+            let {orderId} = await getOrder(+type, +amount * 100, Number(objId) || 0, extra as string || '')
 
             let r = redirect as string || window.location.href
 

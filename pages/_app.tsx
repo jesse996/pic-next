@@ -7,6 +7,7 @@ import {store} from '../store'
 import {memo, useEffect, useRef} from "react";
 import {useRouter} from "next/router";
 import MyLayout from "../components/MyLayout";
+import Head from "next/head";
 
 const ROUTES_TO_RETAIN = ['/', '/girl', '/pure-girl', '/news', '/cosplay']
 
@@ -54,6 +55,9 @@ function MyApp({Component, pageProps}: AppProps) {
 
     // return <Component {...pageProps} />
     return <Provider store={store}>
+        <Head>
+            <title>妹子图 绅士社</title>
+        </Head>
         <MyLayout>
             <div style={{display: isRetainableRoute ? 'block' : 'none'}}>
                 {Object.entries(retainedComponents.current).map(([path, c]) => (
