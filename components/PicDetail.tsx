@@ -11,7 +11,11 @@ import {getPicDetail} from '../api'
 import {useRouter} from "next/router";
 import MyComment from "./MyComment";
 import Pay from "./Pay";
+// import PayVip from "./PayVip";
+import dynamic from "next/dynamic";
 // import Image from 'next/image'
+// eslint-disable-next-line react/display-name
+const PayVip = dynamic(() => import('./PayVip'), {ssr: false, loading: () => <Spin/>})
 
 
 dayjs.extend(relativeTime)
@@ -20,6 +24,7 @@ dayjs.locale('zh-cn')
 const PicDetail = ({data}: { data: Pic }) => {
     // let detail = data
     const [detail, setDetail] = useState(data)
+    const [showPayVip, setShowPayVip] = useState(false)
     let viewCount = detail?.viewCount
     let userInfo = useAppSelector((state) => state.common.userInfo)
     const dispatch = useAppDispatch()
@@ -77,10 +82,23 @@ const PicDetail = ({data}: { data: Pic }) => {
                             <div>登陆查看全部</div>
                         </div>
                     )}
+
+                    {/* 非vip显示一部分 */}
+                    {!userInfo || userInfo.isVip ? null : (
+                        <div
+                            className="absolute bottom-0 left-0 right-0  m-auto w-full h-32 text-center text-3xl bg-white opacity-75 flex justify-center items-center cursor-pointer"
+                            onClick={() => {
+                                setShowPayVip(true)
+                            }}
+                        >
+                            <div>充值查看全部</div>
+                        </div>
+                    )}
                 </div>
             </div>
 
             <Pay/>
+            <PayVip showPay={showPayVip} setShowPay={setShowPayVip}/>
 
             {/* 评论 */}
             <MyComment type={1} objId={data.id}/>

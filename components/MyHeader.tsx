@@ -13,6 +13,8 @@ import {getCurrentUser, logout, search, sendActivateEmail} from '../api'
 import {useRouter} from "next/router";
 import Link from 'next/link'
 import PayVip from "./PayVip";
+import {use} from "ast-types";
+import dayjs from "dayjs";
 
 interface ITab {
     name: string
@@ -125,7 +127,9 @@ function MyHeader() {
             <Menu.Item key={0}>
                 <div onClick={handleLogout}>退出</div>
                 {/*<div onClick={handleActivate}>激活账号</div>*/}
-                <div onClick={handlePayVip}>充值会员</div>
+                {userInfo?.isVip ? <div>到期时间: <span className={'font-bold'}>{dayjs(userInfo.vipExpireTime).format('YYYY-MM-DD')}</span>
+                    </div> :
+                    <div onClick={handlePayVip}>充值会员</div>}
             </Menu.Item>
         </Menu>
     )
@@ -141,7 +145,8 @@ function MyHeader() {
             >
                 <div className="w-full pl-4 cursor-pointer">
                     <UserOutlined className="mr-1"/>
-                    {userInfo.nickname}
+                    {userInfo.nickname}<span
+                    className={'ml-2 text-red-600 font-medium'}>{userInfo.isVip ? 'Vip' : null}</span>
                     <DownOutlined className=" ring-blue-300"/>
                 </div>
             </Dropdown>

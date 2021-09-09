@@ -47,7 +47,7 @@ const PayVip = ({showPay, setShowPay}: { showPay: boolean, setShowPay: (v:boolea
     const handlePay = useCallback(async () => {
         setShowPay(false)
         await router.push(`/pay?redirect=${location.href}&amount=${payValue}&extra=${amount}&type=3`)
-    }, [amount, payValue])
+    }, [amount, payValue, setShowPay])
 
 
     //购买月数

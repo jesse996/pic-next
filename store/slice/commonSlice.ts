@@ -3,6 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export interface UserInfo {
   username: string
   nickname: string
+  isVip:boolean
+  vipExpireTime:string
 }
 
 export interface CommonStatus {
