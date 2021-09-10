@@ -43,6 +43,10 @@ const tabs: ITab[] = [
         name: '资讯',
         path: '/news',
     },
+    {
+        name:'下app赚钱',
+        path:'/apps'
+    }
 ]
 
 function MyHeader() {
