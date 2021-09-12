@@ -61,8 +61,8 @@ const getRequest = (method: string) => {
                 withCredentials: true,
             })
             return res.data
-        } catch (e:any) {
-            message.error(e.toString())
+        } catch (e: any) {
+            message.error(JSON.stringify(e))
             return Promise.reject(e)
         }
     }
