@@ -38,7 +38,6 @@ class MyDocument extends Document {
                         name="description"
                         content="绅士,绅士社,妹子图美女专题栏目，为您精心准备各种美女图片专题，包括名站美女写真，各类美女图片，美女大全等专题。"
                     />
-                    <meta name="baidu-site-verification" content="code-OD1Ep4Bm7W"/>
                     <script
                         async
                         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1377485396123371"
