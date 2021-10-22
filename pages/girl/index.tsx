@@ -16,6 +16,6 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 export default function Girl({initData, total}: InferGetStaticPropsType<typeof getStaticProps>) {
     return <>
-            <PicList getList={getGirls} path="girl" initData={initData} total={total}/>
+        <PicList getList={getGirls} path="girl" initData={initData} total={total}/>
     </>
 }
