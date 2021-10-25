@@ -1,14 +1,13 @@
 import Axios from 'axios'
-import {useCallback, useEffect, useState} from 'react'
-import {CommonResp} from "../types";
-import {message} from "antd";
+import { useCallback, useEffect, useState } from 'react'
+import { CommonResp } from '../types'
+import { message } from 'antd'
 
 let axios = Axios.create()
 
-
 // 拦截请求，给所有的请求都带上token
 if (process.browser) {
-    axios.interceptors.request.use((request) => {
+    axios.interceptors.request.use((request: any) => {
         const jwt_token = localStorage.getItem('jwt_token')
         if (jwt_token) {
             // request.headers['Authorization'] = `Bearer ${jwt_token}`
@@ -22,7 +21,7 @@ if (process.browser) {
 axios.interceptors.response.use(
     (res) => {
         // return res.data
-        let data = res.data
+        let data = res.data as any
         if (data.code !== 0) {
             return Promise.reject(data.msg)
         } else {
@@ -46,9 +45,9 @@ const getRequest = (method: string) => {
                 url,
                 ...(method === 'POST'
                     ? {
-                        // data: options.string ? stringify(data) : data,
-                        data: data,
-                    }
+                          // data: options.string ? stringify(data) : data,
+                          data: data,
+                      }
                     : {}),
                 params: method === 'GET' ? data : options.params,
                 headers: {
